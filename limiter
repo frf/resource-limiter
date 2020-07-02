@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+main()
+{
+	echo "What docker container do you want to target?"
+	read container
+
+	echo "What resource do you want to limit, ram or cpu?"
+	read resource
+
+	case $resource in
+	cpu)
+		echo "How many cores do you want to use?"
+		read amount
+		docker service update --limit-cpu $amount $container
+	;;
+	ram)
+		echo "How many bytes do you want to use?"
+		read amount
+		docker service update --limit-memory=$amount $container
+	;;
+	*)
+		echo "sorry please enter ram or cpu"
+	esac
+
+	
+
+	# resource=$1
+	# amount=$2
+
+	# if [ "$resource" == ram ]; then
+	# 	echo "What container do you want to limit?"
+	# 	read container
+	# 	echo $container
+	# else
+	# 	echo "sorry"
+	# fi
+
+}
+# run the main function
+main
